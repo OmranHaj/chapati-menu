@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "شباتي وكرك"
+description = "منيو عربي إلكتروني لشباتي وكرك، مع أقسام المشروبات والسندويشات الصباحية والمسائية ولوحة إدارة للمنتجات، باستخدام React وNestJS وPostgreSQL."
+version = "1.0.0"
+id = "artifacts/chapati-karak"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18343
+
+[services.development]
+run = "pnpm --filter @workspace/chapati-karak run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/chapati-karak", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/chapati-karak/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18343"
+BASE_PATH = "/"
